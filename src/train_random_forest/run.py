@@ -109,7 +109,7 @@ def go(args):
     artifact = wandb.Artifact(
         args.output_artifact,
         type = 'model_export',
-        description = 'Trained ranfom forest artifact',
+        description = 'Trained random forest artifact',
         metadata = rf_config
     )
     artifact.add_dir('random_forest_dir')
@@ -119,10 +119,8 @@ def go(args):
     fig_feat_imp = plot_feature_importance(sk_pipe, processed_features)
 
     ######################################
-    # Here we save variable r_squared under the "r2" key
     run.summary['r2'] = r_squared
-    # Now save the variable mae under the key "mae".
-    # YOUR CODE HERE
+    run.summary['mae'] = mae 
     run.log({"r2": r_squared, "mae": mae})
     ######################################
 
