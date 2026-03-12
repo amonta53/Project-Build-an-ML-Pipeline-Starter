@@ -21,6 +21,7 @@ The pipeline is orchestrated using MLflow, configured with Hydra, and tracked wi
 # Project Architecture
 
 The pipeline is organized into modular steps that are executed through MLflow Projects.
+
 download_data
   └── basic_cleaning
         └── data_check
@@ -108,6 +109,7 @@ One of the goals of this project was to demonstrate **traceable ML pipelines**.
 Weights & Biases was used to track artifact lineage across the entire workflow.
 
 Example lineage flow:
+
 sample.csv 
   └── clean_sample.csv  
         └── trainval_data.csv  
