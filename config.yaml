@@ -28,7 +28,7 @@ modeling:
   # RandomForestRegressor. This is a subsample, but more could be added:
   random_forest:
     n_estimators: 200  ## Best number of trees found after the 4 runs
-    max_depth: 50  ## Best depth found after the 4 runds
+    max_depth: 50  ## Best depth found after the 4 runs
     min_samples_split: 4
     min_samples_leaf: 3
     # Here -1 means all available cores
