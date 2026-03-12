@@ -22,17 +22,12 @@ The pipeline is orchestrated using MLflow, configured with Hydra, and tracked wi
 
 The pipeline is organized into modular steps that are executed through MLflow Projects.
 
-download_data
-
-  └── basic_cleaning
-  
-        └── data_check
-        
-              └── train_val_test_split
-              
-                    └── train_random_forest
-                    
-                          └── test_regression_model
+download_data 
+  └── basic_cleaning 
+        └── data_check 
+              └── train_val_test_split 
+                    └── train_random_forest 
+                          └── test_regression_model 
                           
 
 Each step produces artifacts that are logged to Weights & Biases, allowing full lineage tracking from the original dataset all the way to the final trained model.
@@ -117,7 +112,6 @@ Weights & Biases was used to track artifact lineage across the entire workflow.
 Example lineage flow:
 
 sample.csv 
-
   └── clean_sample.csv  
         └── trainval_data.csv  
               └── random_forest_export  
