@@ -2,36 +2,31 @@
 
 ![MLflow](https://img.shields.io/badge/MLflow-Pipeline-blue)
 ![Weights & Biases](https://img.shields.io/badge/W&B-ExperimentTracking-yellow)
-![Python](https://img.shields.io/badge/Python-3.13-blue)
+![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
 
 This project implements an end-to-end machine learning pipeline for predicting Airbnb listing prices in New York City. The focus of the project is not just training a model, but demonstrating a reproducible ML workflow using modern ML engineering tools.
 
 The pipeline covers the full lifecycle:
-- data ingestion  
-- cleaning and validation  
-- dataset splitting  
-- model training  
-- hyperparameter tuning  
-- model evaluation  
-- artifact lineage tracking  
+
+    - data ingestion  
+    - cleaning and validation  
+    - dataset splitting  
+    - model training  
+    - hyperparameter tuning  
+    - model evaluation  
+    - artifact lineage tracking  
 
 The pipeline is orchestrated using MLflow, configured with Hydra, and tracked with Weights & Biases.
 
 # Project Architecture
 
 The pipeline is organized into modular steps that are executed through MLflow Projects.
-
-download_data  
-↓  
-basic_cleaning  
-↓  
-data_check  
-↓  
-train_val_test_split  
-↓  
-train_random_forest  
-↓  
-test_regression_model
+download_data
+  └── basic_cleaning
+        └── data_check
+              └── train_val_test_split
+                    └── train_random_forest
+                          └── test_regression_model
 
 Each step produces artifacts that are logged to Weights & Biases, allowing full lineage tracking from the original dataset all the way to the final trained model.
 
@@ -44,8 +39,10 @@ Before building the pipeline, I spent some time exploring the dataset to underst
 The price distribution is heavily right-skewed, with a relatively small number of listings priced far above the majority of the dataset.
 
 To prevent those extreme outliers from distorting model training, a filtering rule was applied during the cleaning step:
- - min_price = 10  
- - max_price = 350
+
+     - min_price = 10  
+     - max_price = 350
+
 This keeps the model focused on the realistic price range most listings fall into.
 
 ### Location Matters
@@ -55,7 +52,8 @@ Manhattan listings tend to have significantly higher prices, while outer borough
 
 ### Room Type Impact
 Room type also plays a major role in pricing:
- - Entire home/apartment > Private room > Shared room
+
+     - Entire home/apartment > Private room > Shared room
 
 These categorical variables are encoded in the preprocessing pipeline before model training.
 
@@ -74,18 +72,21 @@ The preprocessing and model training steps are combined into a single pipeline t
 A small hyperparameter sweep was executed using Hydra multirun to evaluate different model configurations.
 
 The parameters explored were:
- - max_depth
- - n_estimators
+
+     - max_depth
+     - n_estimators
 
 This generated four candidate models, each tracked independently in Weights & Biases.
 
 The best performing configuration was:
- - max_depth: 50
- - n_estimators: 200  
+
+     - max_depth: 50
+     - n_estimators: 200  
 
 Validation performance for that configuration:
- - MAE ≈ 34  
- - R² ≈ 0.55
+
+     - MAE ≈ 34  
+     - R² ≈ 0.55
 
 These parameters were then promoted into `config.yaml` as the default model configuration.
 
@@ -93,8 +94,9 @@ These parameters were then promoted into `config.yaml` as the default model conf
 After training, the selected model was evaluated on a **held-out test dataset** to estimate real-world performance.
 
 Final test results:
- - Mean Absolute Error (MAE): ~34  
- - R² Score: ~0.55
+
+     - Mean Absolute Error (MAE): ~34  
+     - R² Score: ~0.55
 
 This means the model is typically able to predict listing prices within roughly **$34 on average**.
 
@@ -106,15 +108,11 @@ One of the goals of this project was to demonstrate **traceable ML pipelines**.
 Weights & Biases was used to track artifact lineage across the entire workflow.
 
 Example lineage flow:
-sample.csv  
-↓  
-clean_sample.csv  
-↓  
-trainval_data.csv  
-↓  
-random_forest_export  
-↓  
-test_model
+sample.csv 
+  └── clean_sample.csv  
+        └── trainval_data.csv  
+              └── random_forest_export  
+                    └── test_model
 
 This provides full transparency into:
 
@@ -136,10 +134,12 @@ The pipeline was built with reproducibility in mind.
 Because of this setup, the full pipeline can be reproduced with a single command.
 
 Run locally:
- - mlflow run .
+
+     - mlflow run .
 
 Run directly from GitHub using a tagged release:
- - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
+
+     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
 
 This ensures that the exact version of the pipeline used for training can always be recreated.
 
@@ -148,38 +148,44 @@ There are several directions this pipeline could be expanded in future versions.
 
 ### Additional Models
 While Random Forest performed well as a baseline, additional models could be evaluated:
-- Gradient Boosting
-- XGBoost
-- LightGBM
+
+    - Gradient Boosting
+    - XGBoost
+    - LightGBM
 
 Boosted tree methods often outperform bagging approaches on tabular datasets.
 
 ### Feature Engineering
 Additional derived features could improve model performance, including:
-- geographic clustering of listings
-- price per bedroom
-- review frequency trends
-- neighborhood density indicators
+
+    - geographic clustering of listings
+    - price per bedroom
+    - review frequency trends
+    - neighborhood density indicators
 
 ### Hyperparameter Optimization
 The current hyperparameter sweep explores a relatively small grid.
 
 Future work could introduce automated optimization approaches such as:
-- Optuna
-- Bayesian optimization
+
+    - Optuna
+    - Bayesian optimization
 
 ### CI/CD Integration
-In a production environment, this pipeline could be connected to a CI/CD workflow to support:\
-- automated retraining
-- scheduled model updates
-- deployment automation
+In a production environment, this pipeline could be connected to a CI/CD workflow to support: 
+
+    - automated retraining
+    - scheduled model updates
+    - deployment automation
 
 # Running the Pipeline
 Run the pipeline locally:
- - mlflow run .
+
+     - mlflow run .
 
 Run the pipeline from GitHub:
- - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
+
+     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
 
 # Author
 Andrew Montalbano  
