@@ -3,6 +3,8 @@
 ![MLflow](https://img.shields.io/badge/MLflow-Pipeline-blue)
 ![Weights & Biases](https://img.shields.io/badge/W&B-ExperimentTracking-yellow)
 ![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter)
+[![W&B Project](https://img.shields.io/badge/W%26B-Experiment%20Dashboard-yellow)](https://wandb.ai/amonta53-w/nyc_airbnb)
 
 This project implements an end-to-end machine learning pipeline for predicting Airbnb listing prices in New York City. The focus of the project is not just training a model, but demonstrating a reproducible ML workflow using modern ML engineering tools.
 
@@ -18,18 +20,26 @@ The pipeline covers the full lifecycle:
 
 The pipeline is orchestrated using MLflow, configured with Hydra, and tracked with Weights & Biases.
 
+# Project Resources  
+  
+GitHub Repository  
+https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter  
+  
+Weights & Biases Project  
+https://wandb.ai/amonta53-w/nyc_airbnb
+
 # Project Architecture
 
 The pipeline is organized into modular steps that are executed through MLflow Projects.
-
-download_data 
-  └── basic_cleaning 
-        └── data_check 
-              └── train_val_test_split 
-                    └── train_random_forest 
-                          └── test_regression_model 
-                          
-
+```text
+download_data
+└── basic_cleaning
+    └── data_check
+        └── train_val_test_split
+            └── train_random_forest
+                └── test_regression_model
+```
+                    
 Each step produces artifacts that are logged to Weights & Biases, allowing full lineage tracking from the original dataset all the way to the final trained model.
 
 # Data Exploration Highlights
@@ -111,11 +121,13 @@ Weights & Biases was used to track artifact lineage across the entire workflow.
 
 Example lineage flow:
 
-sample.csv 
-  └── clean_sample.csv  
-        └── trainval_data.csv  
-              └── random_forest_export  
-                    └── test_model
+    Artifact Lineage
+    
+    sample.csv
+    └── clean_sample.csv
+        └── trainval_data.csv
+            └── random_forest_export
+                └── test_model
 
 This provides full transparency into:
 
