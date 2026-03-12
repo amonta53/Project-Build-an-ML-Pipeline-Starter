@@ -154,7 +154,7 @@ Run locally:
 
 Run directly from GitHub using a tagged release:
 
-     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
+     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v v1.0.1
 
 This ensures that the exact version of the pipeline used for training can always be recreated.
 
@@ -200,7 +200,7 @@ Run the pipeline locally:
 
 Run the pipeline from GitHub:
 
-     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v 1.0.1
+     - mlflow run [https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git](https://github.com/amonta53/Project-Build-an-ML-Pipeline-Starter.git) -v v1.0.1
 
 # Author
 Andrew Montalbano  
